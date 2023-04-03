@@ -1,4 +1,4 @@
-# Node-Global
+# Node-Basic Folder structure
 
 👋 Hey there, welcome to my base project for Node.js and Express with MongoDB!
 
@@ -49,4 +49,4 @@ This project provides a robust user login system with proper folder structure, u
 - `TOKEN_SERVER_PORT` - the port number for the token server
 - `TOKEN_EXPIRY_TIME` - the token expiry time (e.g. "24h")
 
-👨‍💻 This project was created by Awais Ahmad (@itsahmadawais) and can be used as a starting point for building secure and scalable Node.js and Express applications with MongoDB.
+👨‍💻 This project was created by Imran farhat (imranfarhat70@gmail.com) and can be used as a starting point for building secure and scalable Node.js and Express applications with MongoDB.
