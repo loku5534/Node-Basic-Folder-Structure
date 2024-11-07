@@ -6,8 +6,8 @@ const loginSchema = yup.object().shape({
 });
 
 const singupSchema = yup.object().shape({
-  firstName: yup.string().required(),
-  lastName: yup.string().required(),
+  name: yup.string().required(),
+  phone: yup.string().required(),
   email: yup.string().email().required(),
   password: yup.string().required(),
 });

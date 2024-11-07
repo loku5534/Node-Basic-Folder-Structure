@@ -5,11 +5,11 @@ SALT_WORK_FACTOR = 10;
 
 const usersSchema = new mongoose.Schema(
   {
-    firstName: {
+    name: {
       type: String,
       required: true,
     },
-    lastName: {
+    phone: {
       type: String,
       required: true,
     },
@@ -22,7 +22,7 @@ const usersSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    otp: {
+    OTP: {
       type: String,
     },
   },

@@ -16,7 +16,7 @@ app.use("/api/auth/", authRoutes);
 app.use("/api/users", usersRoutes);
 
 app.get("*", (req, res) => {
-  res.json("Welcome to Cyberhack!");
+  res.json("Welcome to Qrg-Food Portal!");
 });
 app.listen(PORT, function () {
   console.log("Server listening on port " + PORT);

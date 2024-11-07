@@ -6,14 +6,40 @@ const {
   updatePasswordSchema,
 } = require("../utils/schema");
 const { Users } = require("../models");
-const {
-  generateAccessToken,
-  generateRefreshToken,
-} = require("../utils/jsonwebtoken");
+const { getOtpCode } = require("../utils/otpGenerator");
 
-const login = (req, res) => {
-  loginSchema
-    .validate(req.body)
+const { generateAccessToken, generateRefreshToken} = require("../utils/jsonwebtoken");
+
+
+
+const register = async (req, res) => {
+  try {
+    const validatedData = await singupSchema.validate(req.body);
+    const existingUser = await Users.findOne({ email: validatedData.email });
+    if (existingUser) {
+      return res.status(409).json({
+        error: "Email already exists!",
+      });
+    }
+
+    let otpCode = getOtpCode();
+    
+    const newUser = await Users.create({ ...validatedData, otpCode });
+    return res.status(201).json({
+      message: "User registered successfully",
+      result: true,
+      data: newUser, otpCode
+    });
+    
+  } catch (error) {
+    return res.status(500).json({
+      error: "An error occurred while processing your request.",
+    });
+    }
+  }
+
+
+const login = (req, res) => {loginSchema.validate(req.body)
     .then(async (validatedData) => {
       let user = await Users.findOne({
         email: validatedData.email,
@@ -42,29 +68,6 @@ const login = (req, res) => {
     .catch((error) => {
       res.json({
         error: error.errors,
-      });
-    });
-};
-
-const register = (req, res) => {
-  singupSchema
-    .validate(req.body)
-    .then(async (validatedData) => {
-      let user = await Users.findOne({
-        email: validatedData.email,
-      });
-      if (user == null) {
-        user = await Users.create(validatedData);
-        res.json(user);
-      } else {
-        res.status(409).json({
-          error: "Email already exists!",
-        });
-      }
-    })
-    .catch((error) => {
-      res.status(422).json({
-        error: error.errors[0],
       });
     });
 };
@@ -123,7 +126,6 @@ const createPassword = (req, res) => {
 };
 const myProfile = async (req, res) => {
   let user = await Users.findById(req.user._id);
-  console.log(user);
   if (user !== null) {
     res.status(200).json({
       user: user,

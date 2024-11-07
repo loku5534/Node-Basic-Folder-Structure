@@ -21,7 +21,6 @@ function verifyToken(req, res, next) {
     return res.status(401).json({ error: "No token provided" });
   }
 
-  console.log(process.env.ACCESS_TOKEN_SECRET);
   // Verify token
   jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {
     if (err) {
